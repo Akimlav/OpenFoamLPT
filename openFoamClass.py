@@ -8,6 +8,7 @@ Created on Mon Apr 19 10:08:02 2021
 import numpy as np
 import vtk
 from os import listdir, scandir
+from vtk.util.numpy_support import vtk_to_numpy
 
 class openFoam:
     
@@ -79,13 +80,6 @@ class openFoam:
             data = np.concatenate((t,meanDataList), axis = 1)
             return data
 
-    def vtkReader(self, file):
-        reader = vtk.vtkGenericDataObjectReader()
-        reader.SetFileName(file)
-        reader.Update()
-        points = np.array( reader.GetOutput().GetPoints().GetData() )
-        return points
-    
     def readLPTPositions(self, dirPath, foldName, timeScale):
         
         folders = openFoam().fast_scandir(dirPath)
@@ -119,6 +113,23 @@ class openFoam:
         data = np.concatenate((t,meanData), axis = 1)
         return data
 
-
+    def readLagrangianVtk(self, dirPath, file):
+        reader = vtk.vtkPolyDataReader()
+        reader.SetFileName(dirPath + file)
+        reader.ReadAllScalarsOn()
+        reader.ReadAllVectorsOn()
+        reader.ReadAllTensorsOn()
+        reader.Update()
+        
+        origId = vtk_to_numpy(reader.GetOutput().GetPointData().GetArray(1))
+        d = vtk_to_numpy(reader.GetOutput().GetPointData().GetArray(4))
+        T = vtk_to_numpy(reader.GetOutput().GetPointData().GetArray(14))
+        points = np.array(reader.GetOutput().GetPoints().GetData())
+        U = vtk_to_numpy(reader.GetOutput().GetPointData().GetArray('U'))
+        
+        Up = np.concatenate((U, points), axis = 1)
+        idDT = np.asarray([origId, d, T]).T
+        data = np.concatenate((idDT, Up), axis = 1)
+        return data
         
         
