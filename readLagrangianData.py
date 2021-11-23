@@ -92,7 +92,7 @@ for ps in range(len(resList[0])):
         n = np.concatenate((zero, n))
     np.savetxt(fileName + str(s) + '.dat', n)
 
-# a = openFoam().readLagrangianVtk(path, allFileList[1])
+# a = openFoam().readLagrangianVtk(dirPath, allFileList[-1])
 # index = np.where(np.isin(a[:,1], dp[-1]))
 # psInd = index[0]
 # aa = a[psInd]
@@ -100,7 +100,7 @@ for ps in range(len(resList[0])):
 # aInd = np.where(np.greater_equal(aa[:,6], 0))
 # aaa = aa[aInd]
 # plt.plot(aaa[:,6],aaa[:,8], ',')
-# # plt.xlim(0,1.6)
-# # plt.ylim(-0.5,0.5)
+# plt.xlim(0,1.6)
+# plt.ylim(-0.5,0.5)
 # plt.show()
 

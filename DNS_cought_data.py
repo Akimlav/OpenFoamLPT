@@ -18,19 +18,19 @@ save = [dnsX,dnsY]
 np.savetxt('dns_cloud.dat', save)
 t = positionOrig[:,0]
 
-# positionX4 = positionOrig[:,3] * 0.002
-# positionY4 = positionOrig[:,2] * 0.002
-# velocity4 = velocityOrig[:,8] * 4.8
-# t4 = velocityOrig[:,0] * 0.0002
+positionX4 = positionOrig[:,3] * 0.002
+positionY4 = positionOrig[:,2] * 0.002
+velocity4 = velocityOrig[:,8] * 4.8
+t4 = velocityOrig[:,0] * 0.0002
 
 
-# fig, ax = plt.subplots(figsize=(5, 5))
-# ax.grid(True)
-# plt.plot(positionX4, positionY4,'-',label="DNS 4e-6 m")
-# plt.xlabel('Time, sec')
-# plt.ylabel('Vx, m/s')
-# plt.ylim(0,2.8)
-# plt.xlim(0,1.7)
-# plt.legend(loc="upper right")
-# plt.savefig('ps_mean_velocity.png',dpi= 150)
-# plt.show()
+fig, ax = plt.subplots(figsize=(5, 5))
+ax.grid(True)
+plt.plot(positionX4, positionY4,'-',label="DNS 4e-6 m")
+plt.xlabel('Time, sec')
+plt.ylabel('Vx, m/s')
+plt.ylim(0,2.8)
+plt.xlim(0,1.7)
+plt.legend(loc="upper right")
+plt.savefig('ps_mean_velocity.png',dpi= 150)
+plt.show()
